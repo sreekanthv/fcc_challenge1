@@ -1,6 +1,7 @@
 {
 	"name": "fcc-api-projects-boilerplate",
 	"version": "0.0.1",
+  "author": "Sreekanth Vedavyas",
 	"description": "An FCC Backend Challenge",
 	"main": "server.js",
 	"scripts": {
