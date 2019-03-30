@@ -28,17 +28,19 @@ var ROOT_PATH = "/";
 var DATE_API_PATH = ROOT_PATH + "api/timestamp/:date_string";
 var DATE_EMPTY_PATH = ROOT_PATH + "api/timestamp/";
 
-function parseAndReturnJson(param) {  
+function parseAndReturnJson(inParam) {  
   var date;
-  if (param === "" || param == null) {
+  var param = inParam;//parseInt(inParam);
+  if (param === "" || param == null ) {
     console.log("got nonstringparam " + param);
     date = new Date();
   }
   else {
-    date = new Date(param);
-    console.log(param);
-    console.log("date is " + date);
-    if(!(date instanceof Date && !isNaN(date))) {
+    if(date instanceof Number) {
+      
+    }
+    date = new Date(param); 
+    if(!(date instanceof Date && !isNaN(date))) {            
       return {"error" : "Invalid Date" };      
     }
   }  
