@@ -30,16 +30,19 @@ var DATE_EMPTY_PATH = ROOT_PATH + "api/timestamp/";
 
 function parseAndReturnJson(param) {  
   var date;
-  if (param === "" || !isNaN(param) || param == null) {
+  if (param === "" || param == null) {
+    console.log("got nonstringparam " + param);
     date = new Date();
   }
   else {
     date = new Date(param);
+    console.log(param);
+    console.log("date is " + date);
     if(!(date instanceof Date && !isNaN(date))) {
       return {"error" : "Invalid Date" };      
     }
   }  
-  console.log(date.toUTCString());
+  //console.log(date.toUTCString());
   return {unix: date.getTime(), utc: date.toUTCString()};
 }
 
@@ -47,7 +50,7 @@ function createDateFromReq(req,res) {
   return res.json(parseAndReturnJson(req.params.date_string));
 }
 function createDateFromEmpty(req,res) {
-  return res.json(parseAndReturnJson());
+  return res.json(parseAndReturnJson(null));
 }
 
 
