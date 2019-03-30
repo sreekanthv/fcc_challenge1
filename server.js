@@ -27,20 +27,24 @@ app.get("/api/hello", function (req, res) {
 var ROOT_PATH = "/";
 var DATE_API_PATH = ROOT_PATH + "api/timestamp/:date_string";
 
-function parseAndReturnJson(param) {
-  console.log(param);
-  var date = new Date(param);
-  if(date instanceof Date && !isNaN(date)) {
-    console.log(date.toUTCString());
-    return {unix: date.getTime(), utc: date.toUTCString()};
+function parseAndReturnJson(req) {  
+  if 
+  var date;
+  if (param === "" || !isNaN(param) || param == null) {
+    date = new Date();
   }
   else {
-    return {"error" : "Invalid Date" };
-  }
+    date = new Date(param);
+    if(!(date instanceof Date && !isNaN(date))) {
+      return {"error" : "Invalid Date" };      
+    }
+  }  
+  console.log(date.toUTCString());
+  return {unix: date.getTime(), utc: date.toUTCString()};
 }
 
 function createDateFromReq(req,res) {
-  return res.json(parseAndReturnJson(req.params.date_string));
+  return res.json(parseAndReturnJson(req));
 }
 
 app.get(DATE_API_PATH,createDateFromReq);
