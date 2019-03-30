@@ -23,12 +23,12 @@ app.get("/", function (req, res) {
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
-
+ 
 var ROOT_PATH = "/";
 var DATE_API_PATH = ROOT_PATH + "api/timestamp/:date_string";
+var DATE_EMPTY_PATH = ROOT_PATH + "api/timestamp/";
 
-function parseAndReturnJson(req) {  
-  if 
+function parseAndReturnJson(param) {  
   var date;
   if (param === "" || !isNaN(param) || param == null) {
     date = new Date();
@@ -44,10 +44,15 @@ function parseAndReturnJson(req) {
 }
 
 function createDateFromReq(req,res) {
-  return res.json(parseAndReturnJson(req));
+  return res.json(parseAndReturnJson(req.params.date_string));
+}
+function createDateFromEmpty(req,res) {
+  return res.json(parseAndReturnJson());
 }
 
+
 app.get(DATE_API_PATH,createDateFromReq);
+app.get(DATE_EMPTY_PATH,createDateFromReq);
 
 
 // listen for requests :)
