@@ -30,20 +30,20 @@ var DATE_EMPTY_PATH = ROOT_PATH + "api/timestamp/";
 
 function parseAndReturnJson(inParam) {  
   var date;
-  var param = inParam;//parseInt(inParam);
-  if (param === "" || param == null ) {
-    console.log("got nonstringparam " + param);
+  var param = inParam;
+  if(!isNaN(param)) {
+      date = new Date(parseInt(param));
+  }
+  else if (param === "" || param == null || param == undefined) {
+    //console.log("got nonstringparam " + param);
     date = new Date();
   }
-  else {
-    if(date instanceof Number) {
-      
-    }
-    date = new Date(param); 
-    if(!(date instanceof Date && !isNaN(date))) {            
-      return {"error" : "Invalid Date" };      
-    }
+  else {    
+    date = new Date(param);     
   }  
+  if(!(date instanceof Date && !isNaN(date))) {            
+      return {"error" : "Invalid Date" };      
+  }
   //console.log(date.toUTCString());
   return {unix: date.getTime(), utc: date.toUTCString()};
 }
