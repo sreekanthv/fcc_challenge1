@@ -24,6 +24,9 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+var ROOT_PATH = "/";
+var A = "/api/timestamp/:date_string";
+
 
 
 // listen for requests :)
