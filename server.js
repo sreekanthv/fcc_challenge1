@@ -32,7 +32,7 @@ function parseAndReturnJson(param) {
   var date = new Date(param);
   if(date instanceof Date && !isNaN(date)) {
     console.log(date.toUTCString());
-    return {unix: "", utc: date.toUTCString()};
+    return {unix: date.getTime(), utc: date.toUTCString()};
   }
   else {
     return {"error" : "Invalid Date" };
@@ -40,9 +40,10 @@ function parseAndReturnJson(param) {
 }
 
 function createDateFromReq(req,res) {
-  return res.json({'echo': req.params.word});
+  return res.json(parseAndReturnJson(req.params.date_string));
 }
-app.get(echoPath,echoWord);
+
+app.get(DATE_API_PATH,createDateFromReq);
 
 
 // listen for requests :)
